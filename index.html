@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ask Copper · Copper State Labs Help Center</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #f6efe6;
+  --surface: #fffaf4;
+  --surface-2: #f0e5d8;
+  --line: #e2d3c2;
+  --text: #1f2633;
+  --muted: #6a6459;
+  --copper: #b4643c;
+  --copper-strong: #96502c;
+  --on-copper: #fffaf4;
+  --teal: #2f7d74;
+  --teal-soft: #dcefe9;
+  --mark: #f6d9a8;
+  --display: "Fraunces", Georgia, serif;
+  --ui: "Figtree", "Segoe UI", system-ui, sans-serif;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --bg: #161a22; --surface: #1e232d; --surface-2: #262c38; --line: #333a48;
+    --text: #efe8de; --muted: #a39b8f; --copper: #d98758; --copper-strong: #e89a6c; --on-copper: #1b1410;
+    --teal: #6cc2b5; --teal-soft: #1f3a37; --mark: #6b4a1f;
+  }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #161a22; --surface: #1e232d; --surface-2: #262c38; --line: #333a48;
+  --text: #efe8de; --muted: #a39b8f; --copper: #d98758; --copper-strong: #e89a6c; --on-copper: #1b1410;
+  --teal: #6cc2b5; --teal-soft: #1f3a37; --mark: #6b4a1f;
+}
+*, *::before, *::after { box-sizing: inherit; }
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--ui); font-size: 17px; line-height: 1.55; }
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 3px solid var(--teal); outline-offset: 2px; }
+
+.top { border-bottom: 1px solid var(--line); }
+.top-inner, main, footer { max-width: 760px; margin: 0 auto; padding-left: 20px; padding-right: 20px; }
+.top-inner { display: flex; align-items: center; justify-content: space-between; height: 60px; }
+.brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: .02em; font-size: .95rem; }
+.brand i { width: 16px; height: 16px; background: var(--copper); display: inline-block; border-radius: 3px; }
+.top small { color: var(--muted); font-size: .9rem; }
+
+.hero { padding: 48px 0 20px; }
+h1 { font-family: var(--display); font-weight: 650; font-size: clamp(2.4rem, 7vw, 3.4rem); line-height: 1.02; margin: 0 0 12px; letter-spacing: -.01em; }
+h1 span { color: var(--copper); }
+.lede { color: var(--muted); max-width: 58ch; margin: 0; }
+
+form { display: flex; gap: 8px; margin: 26px 0 12px; }
+form input { flex: 1; min-width: 0; padding: 14px 16px; border-radius: 10px; border: 1.5px solid var(--line); background: var(--surface); }
+form input:focus { border-color: var(--copper); outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--copper) 22%, transparent); }
+.ask { padding: 0 22px; border: 0; border-radius: 10px; background: var(--copper); color: var(--on-copper); font-weight: 700; }
+.ask:hover:not(:disabled) { background: var(--copper-strong); }
+.ask:disabled { opacity: .6; cursor: wait; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { padding: 7px 12px; border-radius: 99px; border: 1px solid var(--line); background: transparent; font-size: .88rem; color: var(--muted); }
+.chip:hover { border-color: var(--copper); color: var(--text); }
+
+.thread { display: flex; flex-direction: column; gap: 22px; padding: 30px 0 20px; }
+.q { align-self: flex-end; max-width: 85%; background: var(--surface-2); padding: 10px 14px; border-radius: 14px 14px 4px 14px; font-weight: 500; }
+.a { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; }
+.a-head { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 6px; font-size: .8rem; color: var(--muted); font-weight: 600; letter-spacing: .04em; text-transform: uppercase; }
+.a-head b { color: var(--copper); }
+.a p { margin: 0; }
+.a.miss { border-style: dashed; }
+.sources { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.cite { display: inline-flex; align-items: center; gap: 6px; padding: 6px 11px; border-radius: 8px; border: 1px solid transparent; background: var(--teal-soft); color: var(--teal); font-size: .88rem; font-weight: 600; }
+.cite:hover, .cite[aria-expanded="true"] { border-color: var(--teal); }
+.cite svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; }
+.page { margin-top: 12px; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+.page-head { padding: 8px 12px; background: var(--surface-2); font-size: .82rem; font-weight: 600; color: var(--muted); }
+.page pre { margin: 0; padding: 12px; max-height: 320px; overflow: auto; white-space: pre-wrap; font-family: var(--ui); font-size: .88rem; line-height: 1.5; }
+mark { background: var(--mark); color: inherit; border-radius: 2px; padding: 0 1px; }
+.thinking { color: var(--muted); font-style: italic; }
+.thinking::after { content: ""; display: inline-block; width: 1.2em; text-align: left; animation: dots 1.2s steps(4) infinite; }
+@keyframes dots { 0% { content: ""; } 25% { content: "."; } 50% { content: ".."; } 75% { content: "..."; } }
+
+footer { padding-top: 10px; padding-bottom: 40px; color: var(--muted); font-size: .85rem; }
+@media (max-width: 520px) {
+  .top small { display: none; }
+  .hero { padding-top: 32px; }
+}
+@media (prefers-reduced-motion: reduce) { .thinking::after { animation: none; content: "..."; } }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="top-inner">
+    <div class="brand"><i aria-hidden="true"></i>COPPER STATE LABS</div>
+    <small>Help Center</small>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <h1>Ask <span>Copper</span></h1>
+    <p class="lede">Questions about Copper Home, Copper Notes, Copper Plus, returns or warranty? Ask Copper answers from our support documents and shows the page each answer came from.</p>
+    <form id="form" autocomplete="off">
+      <label for="q" class="sr" style="position:absolute;left:-9999px">Your question</label>
+      <input id="q" name="q" placeholder="e.g. What does the orange light ring mean?" maxlength="500" required>
+      <button class="ask" id="ask" type="submit">Ask</button>
+    </form>
+    <div class="chips" aria-label="Example questions">
+      <button class="chip" type="button">What does C-31 mean on Copper Notes?</button>
+      <button class="chip" type="button">Can I get a refund on an annual Copper Plus plan?</button>
+      <button class="chip" type="button">Can Copper Home order me a pizza?</button>
+      <button class="chip" type="button">How long is the Copper Home warranty?</button>
+    </div>
+  </section>
+
+  <section class="thread" id="thread" aria-live="polite"></section>
+</main>
+
+<footer>Copper can make mistakes. Open the cited page to check an answer. Copper State Labs is a fictional company used for a class exercise.</footer>
+
+<script type="module">
+import { PAGES } from './pages.js';
+
+const form = document.getElementById('form');
+const input = document.getElementById('q');
+const askBtn = document.getElementById('ask');
+const thread = document.getElementById('thread');
+
+const esc = (s) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const STOP = new Set('about after also does from have what when where which with your copper home notes plus that this there they will would could should can mean means'.split(' '));
+
+function highlight(text, question) {
+  const terms = [...new Set((question.toLowerCase().match(/[a-z0-9]+(?:-[a-z0-9]+)*/g) || [])
+    .filter((t) => (t.length >= 4 || /\d/.test(t)) && !STOP.has(t)))];
+  let html = esc(text);
+  if (!terms.length) return html;
+  const re = new RegExp('\\b(' + terms.map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|') + ')\\w*', 'gi');
+  return html.replace(re, '<mark>$&</mark>');
+}
+
+const ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l4 4v14H6z"/><path d="M14 3v5h5"/></svg>';
+
+function addQuestion(text) {
+  const q = document.createElement('div');
+  q.className = 'q';
+  q.textContent = text;
+  thread.appendChild(q);
+  const a = document.createElement('div');
+  a.className = 'a';
+  a.innerHTML = '<p class="thinking">Copper is checking the support documents</p>';
+  thread.appendChild(a);
+  a.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  return a;
+}
+
+function renderAnswer(el, question, data) {
+  const mode = data.mode === 'claude' ? 'Answered by Claude' : 'Keyword search';
+  el.classList.toggle('miss', !data.found);
+  el.innerHTML =
+    '<div class="a-head"><b>Ask Copper</b><span>' + mode + '</span></div>' +
+    '<p>' + esc(data.answer) + '</p>';
+  if (data.citations && data.citations.length) {
+    const row = document.createElement('div');
+    row.className = 'sources';
+    data.citations.forEach((c) => {
+      const btn = document.createElement('button');
+      btn.className = 'cite';
+      btn.type = 'button';
+      btn.setAttribute('aria-expanded', 'false');
+      btn.innerHTML = ICON + esc(c.title) + ', page ' + c.page;
+      btn.addEventListener('click', () => togglePage(el, btn, c, question));
+      row.appendChild(btn);
+    });
+    el.appendChild(row);
+  }
+}
+
+function togglePage(el, btn, c, question) {
+  const id = 'page-' + c.doc + '-' + c.page;
+  const open = el.querySelector('.page[data-id="' + id + '"]');
+  el.querySelectorAll('.page').forEach((p) => p.remove());
+  el.querySelectorAll('.cite').forEach((b) => b.setAttribute('aria-expanded', 'false'));
+  if (open) return;
+  const page = PAGES.find((p) => p.doc === c.doc && p.page === c.page);
+  if (!page) return;
+  const box = document.createElement('div');
+  box.className = 'page';
+  box.dataset.id = id;
+  box.innerHTML = '<div class="page-head">' + esc(page.title) + ', page ' + page.page + '</div><pre>' + highlight(page.text, question) + '</pre>';
+  el.appendChild(box);
+  btn.setAttribute('aria-expanded', 'true');
+}
+
+async function ask(question) {
+  question = question.trim();
+  if (!question) return;
+  askBtn.disabled = true;
+  const el = addQuestion(question);
+  try {
+    const res = await fetch('/api/ask', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ question })
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Request failed');
+    renderAnswer(el, question, data);
+  } catch (err) {
+    el.classList.add('miss');
+    el.innerHTML = '<p>Sorry, Ask Copper couldn’t answer right now (' + esc(String(err.message || err)) + '). Please try again.</p>';
+  } finally {
+    askBtn.disabled = false;
+    input.focus();
+  }
+}
+
+form.addEventListener('submit', (e) => { e.preventDefault(); const v = input.value; input.value = ''; ask(v); });
+document.querySelectorAll('.chip').forEach((c) => c.addEventListener('click', () => ask(c.textContent)));
+</script>
+</body>
+</html>

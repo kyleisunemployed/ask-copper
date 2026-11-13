@@ -1,0 +1,8 @@
+{
+  "name": "ask-copper",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Ask Copper: answers Copper State Labs support questions from the support PDFs, with page citations.",
+  "engines": { "node": ">=18" }
+}
